@@ -35,7 +35,7 @@ source "azure-arm" "ubuntu-18-04" {
   os_type = "Linux"
   image_publisher = "Canonical"
   image_offer = "UbuntuServer"
-  image_sku = "18.04-LTS"
+  image_sku = "22_04-lts-gen2"
   location = var.azure.location
   vm_size = "Standard_A4_v2"
   use_azure_cli_auth = true
@@ -48,7 +48,7 @@ build {
   ]
 
   provisioner "ansible" {
-    extra_arguments = ["--extra-vars", "${join(" ", [for key, value in var.splunk_server : "${key}=\"${value}\""])}"]
+    extra_arguments = ["--extra-vars", "${join(" ", [for key, value in var.splunk_server : "${key}=\"${value}\""])} ${join(" ", [for key, value in var.general : "${key}=\"${value}\""])}"]
     playbook_file   = "packer/ansible/linux_server.yml"
     user            = "ubuntu"
   }

@@ -44,9 +44,9 @@ resource "azurerm_virtual_machine" "windows" {
 
   storage_image_reference {
     id = var.general.use_prebuilt_images_with_packer == "1" ? data.azurerm_image.search[count.index].id : null
-    publisher = var.general.use_prebuilt_images_with_packer == "0" ? var.windows_servers[count.index].azure_publisher : null 
-    offer     = var.general.use_prebuilt_images_with_packer == "0" ? var.windows_servers[count.index].azure_offer : null
-    sku       = var.general.use_prebuilt_images_with_packer == "0" ? var.windows_servers[count.index].azure_sku : null
+    publisher = var.general.use_prebuilt_images_with_packer == "0" ? coalesce(var.windows_servers[count.index].azure_publisher, null) : null
+    offer     = var.general.use_prebuilt_images_with_packer == "0" ? coalesce(var.windows_servers[count.index].azure_offer, null) : null
+    sku       = var.general.use_prebuilt_images_with_packer == "0" ? coalesce(var.windows_servers[count.index].azure_sku, null) : null
     version   = var.general.use_prebuilt_images_with_packer == "0" ? "latest" : null
   }
 

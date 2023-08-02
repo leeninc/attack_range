@@ -1,0 +1,27 @@
+general:
+  cloud_provider: azure
+  attack_range_password: 8A2Z8aMWdG2OPBHAfkn
+  use_prebuilt_images_with_packer: '1'
+  key_name: root-21526
+  ip_whitelist: 158.51.82.59/32,34.201.223.128/25,44.192.244.0/24,54.175.125.192/26
+  attack_range_name: ar-demo
+azure:
+  subscription_id: bd34c722-48dc-49cd-8cdc-ceafa5f59ab5
+  private_key_path: /attack_range/root-21526.key
+  public_key_path: /attack_range/root-21526.pub
+  location: eastus
+windows_servers:
+- hostname: ar-win-dc
+  windows_image: windows-2019-v3-0-0
+  create_domain: '1'
+  install_red_team_tools: '1'
+  bad_blood: '1'
+- hostname: ar-win-2
+  windows_image: windows-2016-v3-0-0
+  join_domain: '1'
+- hostname: ar-win-3
+  windows_image: windows-2016-v3-0-0
+  join_domain: '1'
+linux_servers:
+- hostname: ar-linux
+- hostname: ar-linux-2
